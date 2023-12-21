@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRIN134 Final Exam</title>
+  <link href="bootstrap.min.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <div class="container mt-4">
+  <h2>PRIN134 Final Exam</h2>
+    <hr>
+     <div>(10Pts) Can add "to do" items. To do items will consists of a Title and Details.</div>
+     <div>(10Pts) Created "to do" items should be displayed under "To Do Items" section.</div>
+     <div>(10Pts) Can process the "to do" items using "First In First Out" or "First In Last Out" approach.</div>
+     <div>(10Pts) Processed "to do" items should be displayed under "Done Items" section and removed in "To Do Items" section.</div>
+    <div>(10Pts) A reset button that will remove all items in "To Do Items" and "Done Items" sections.</div>
+    <div>(20Pts) Bonus for layout.</div>
+    
+    <div class="mt-3">
+      <form id="todo-farm">
+        <div class="form-group">
+          <label for="Title">Title:</label>
+          <input type="text" class="form-control" id="title" placeholder="Enter Title" >
+        </div>
+      <div class = "form-group">
+        <label for="Details">Details:</label>
+        <textarea class="form-control" id= "details" rows="3" placeholder="Enter Details"></textarea>
+      </div>
+    </div>
+        
+        <button type="submit" class="btn btn-primary" onclick="addToDoItem()">Add</button>
+        <button type="button" class="btn btn-danger" onclick="resetApp()">Clear</button>
+        
+      </form>
+
+      <div class="row row-cols-1 row-cols-md-2 mb-4">
+        <div class="col">
+          <h3>Processing</h3>
+          <p>Select a process for to do processing.</p>
+          <button class="btn btn-primary" onclick="processTodo('fifo')">FIFO</button>
+          <button class="btn btn-primary" onclick="processTodo('lifo')">LIFO</button>
+          <button class="btn btn-danger text-light example_d" id="reset-btn" onclick="reset()">Reset</button>
+        </div>
+      </div>
+      
+    <div class="container bg-light mt-5 s">
+        <div class="row">
+            <div class="col-6">
+                <h2>To Do Items</h2>                    
+                <div class="list-group" id="todo-list"></div>                    
+            </div>
+            <div class="col-6">
+                <h2>Done Items</h2>
+                <div class="list-group" id="done-list"></div>
+            </div>
+        </div>
+    </div>   
+        
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+  <script>
+    $(document).ready(function() {
+      $(document).ready(function () {
+        $("#todo-form").submit(function (event) {
+          event.preventDefault();
+          addToDoItem();
+        });
+      });
+    });
+
+      function addToDoItem() {
+        var title = $("#title").val();
+        var details = $("#details").val();
+
+        if (title && details) {
+          var listItem = '<li class="list-group-item">' +
+            '<strong>' + title + '</strong><br>' +
+            details +
+            '</li>';
+
+          $("#todo-list").append(listItem);
+
+          $("#title, #details").val("");
+        }
+      }
+
+      function resetApp() {
+        $("#todo-list, #done-list").empty();
+      }
+  </script>
+</body>
+
+</html>
